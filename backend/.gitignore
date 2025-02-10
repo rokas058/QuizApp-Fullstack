@@ -1,0 +1,23 @@
+# Build artefacts
+bin/
+obj/
+out/
+*.exe
+*.dll
+*.pdb
+
+# User-specific files
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+*.tmp
+*.temp

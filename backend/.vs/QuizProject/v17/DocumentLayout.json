@@ -1,0 +1,119 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\rokas\\OneDrive\\Stalinis kompiuteris\\QuizProject\\backend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C5AE2DAC-60FB-4C2B-96DC-2F3BADCB5624}|QuizProject\\QuizProject.csproj|c:\\users\\rokas\\onedrive\\stalinis kompiuteris\\quizproject\\backend\\quizproject\\models\\dto\\quizresultdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C5AE2DAC-60FB-4C2B-96DC-2F3BADCB5624}|QuizProject\\QuizProject.csproj|solutionrelative:quizproject\\models\\dto\\quizresultdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C5AE2DAC-60FB-4C2B-96DC-2F3BADCB5624}|QuizProject\\QuizProject.csproj|c:\\users\\rokas\\onedrive\\stalinis kompiuteris\\quizproject\\backend\\quizproject\\models\\dto\\quizsubmission.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C5AE2DAC-60FB-4C2B-96DC-2F3BADCB5624}|QuizProject\\QuizProject.csproj|solutionrelative:quizproject\\models\\dto\\quizsubmission.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C5AE2DAC-60FB-4C2B-96DC-2F3BADCB5624}|QuizProject\\QuizProject.csproj|c:\\users\\rokas\\onedrive\\stalinis kompiuteris\\quizproject\\backend\\quizproject\\models\\entities\\question.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C5AE2DAC-60FB-4C2B-96DC-2F3BADCB5624}|QuizProject\\QuizProject.csproj|solutionrelative:quizproject\\models\\entities\\question.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C5AE2DAC-60FB-4C2B-96DC-2F3BADCB5624}|QuizProject\\QuizProject.csproj|c:\\users\\rokas\\onedrive\\stalinis kompiuteris\\quizproject\\backend\\quizproject\\models\\entities\\quizresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C5AE2DAC-60FB-4C2B-96DC-2F3BADCB5624}|QuizProject\\QuizProject.csproj|solutionrelative:quizproject\\models\\entities\\quizresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C5AE2DAC-60FB-4C2B-96DC-2F3BADCB5624}|QuizProject\\QuizProject.csproj|c:\\users\\rokas\\onedrive\\stalinis kompiuteris\\quizproject\\backend\\quizproject\\repositories\\iquizresultrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C5AE2DAC-60FB-4C2B-96DC-2F3BADCB5624}|QuizProject\\QuizProject.csproj|solutionrelative:quizproject\\repositories\\iquizresultrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "QuizResultDto.cs",
+              "DocumentMoniker": "C:\\Users\\rokas\\OneDrive\\Stalinis kompiuteris\\QuizProject\\backend\\QuizProject\\Models\\Dto\\QuizResultDto.cs",
+              "RelativeDocumentMoniker": "QuizProject\\Models\\Dto\\QuizResultDto.cs",
+              "ToolTip": "C:\\Users\\rokas\\OneDrive\\Stalinis kompiuteris\\QuizProject\\backend\\QuizProject\\Models\\Dto\\QuizResultDto.cs",
+              "RelativeToolTip": "QuizProject\\Models\\Dto\\QuizResultDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-09T11:02:21.33Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "QuizSubmission.cs",
+              "DocumentMoniker": "C:\\Users\\rokas\\OneDrive\\Stalinis kompiuteris\\QuizProject\\backend\\QuizProject\\Models\\Dto\\QuizSubmission.cs",
+              "RelativeDocumentMoniker": "QuizProject\\Models\\Dto\\QuizSubmission.cs",
+              "ToolTip": "C:\\Users\\rokas\\OneDrive\\Stalinis kompiuteris\\QuizProject\\backend\\QuizProject\\Models\\Dto\\QuizSubmission.cs",
+              "RelativeToolTip": "QuizProject\\Models\\Dto\\QuizSubmission.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-09T11:02:06.795Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "QuizResult.cs",
+              "DocumentMoniker": "C:\\Users\\rokas\\OneDrive\\Stalinis kompiuteris\\QuizProject\\backend\\QuizProject\\Models\\Entities\\QuizResult.cs",
+              "RelativeDocumentMoniker": "QuizProject\\Models\\Entities\\QuizResult.cs",
+              "ToolTip": "C:\\Users\\rokas\\OneDrive\\Stalinis kompiuteris\\QuizProject\\backend\\QuizProject\\Models\\Entities\\QuizResult.cs",
+              "RelativeToolTip": "QuizProject\\Models\\Entities\\QuizResult.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-09T10:57:38.339Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Question.cs",
+              "DocumentMoniker": "C:\\Users\\rokas\\OneDrive\\Stalinis kompiuteris\\QuizProject\\backend\\QuizProject\\Models\\Entities\\Question.cs",
+              "RelativeDocumentMoniker": "QuizProject\\Models\\Entities\\Question.cs",
+              "ToolTip": "C:\\Users\\rokas\\OneDrive\\Stalinis kompiuteris\\QuizProject\\backend\\QuizProject\\Models\\Entities\\Question.cs",
+              "RelativeToolTip": "QuizProject\\Models\\Entities\\Question.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-09T10:57:29.691Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IQuizResultRepository.cs",
+              "DocumentMoniker": "C:\\Users\\rokas\\OneDrive\\Stalinis kompiuteris\\QuizProject\\backend\\QuizProject\\Repositories\\IQuizResultRepository.cs",
+              "RelativeDocumentMoniker": "QuizProject\\Repositories\\IQuizResultRepository.cs",
+              "ToolTip": "C:\\Users\\rokas\\OneDrive\\Stalinis kompiuteris\\QuizProject\\backend\\QuizProject\\Repositories\\IQuizResultRepository.cs",
+              "RelativeToolTip": "QuizProject\\Repositories\\IQuizResultRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-09T10:57:08.683Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 1359,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
