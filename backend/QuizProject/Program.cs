@@ -1,16 +1,12 @@
 using Microsoft.EntityFrameworkCore;
-using QuizProject.Data;
-using QuizProject.Initialize;
-using QuizProject.Repositories;
-using QuizProject.Services;
-using System.Text.Json.Serialization;
+using QuizProject.Application.Interfaces;
+using QuizProject.Application.Services;
+using QuizProject.Infrastructure.Data;
+using QuizProject.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -24,7 +20,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddDbContext<AplicationDBContext>(options =>
+builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseInMemoryDatabase("QuizDb"));
 
 builder.Services.AddAutoMapper(typeof(Program));
@@ -37,13 +33,12 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var context = scope.ServiceProvider.GetRequiredService<AplicationDBContext>();
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
     QuestionInitializer.Initialize(context);
 }
 
 app.UseCors("AllowReactApp");
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

@@ -1,9 +1,9 @@
-﻿using QuizProject.Models.Dto;
-using QuizProject.Models.Entities;
-using QuizProject.Models.Enum;
-using QuizProject.Services;
-using Xunit;
-using System.Collections.Generic;
+﻿
+
+using QuizProject.Application.Dto;
+using QuizProject.Application.Services;
+using QuizProject.Domain.Entities;
+using QuizProject.Domain.Enum;
 
 namespace QuizProject.Tests.Services
 {

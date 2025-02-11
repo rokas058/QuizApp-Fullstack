@@ -1,26 +1,27 @@
-﻿using Microsoft.EntityFrameworkCore;
-using QuizProject.Data;
-using QuizProject.Models.Entities;
-using QuizProject.Models.Enum;
-using QuizProject.Repositories;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Xunit;
+﻿using FluentAssertions.Execution;
+using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
+using QuizProject.Infrastructure.Data;
+using QuizProject.Infrastructure.Repositories;
+using QuizProject.Domain.Entities;
+using QuizProject.Domain.Enum;
+
+
 
 namespace QuizProject.Tests.Repositories
 {
     public class QuestionRepositoryTests : IDisposable
     {
-        private readonly AplicationDBContext _dbContext;
+        private readonly ApplicationDBContext _dbContext;
         private readonly QuestionRepository _repository;
 
         public QuestionRepositoryTests()
         {
-            var options = new DbContextOptionsBuilder<AplicationDBContext>()
-                .UseInMemoryDatabase(databaseName: "TestDatabase")
+            var options = new DbContextOptionsBuilder<ApplicationDBContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
 
-            _dbContext = new AplicationDBContext(options);
+            _dbContext = new ApplicationDBContext(options);
             _repository = new QuestionRepository(_dbContext);
         }
 
@@ -42,11 +43,14 @@ namespace QuizProject.Tests.Repositories
             };
 
             // Act
-            var result = await _repository.AddQuestion(question);
+            var result = await _repository.AddQuestionAsync(question);
 
             // Assert
-            Assert.NotNull(result);  
-            Assert.Equal("What is the capital of France?", result.QuestionText);  
+            using (new AssertionScope())  
+            {
+                result.Should().NotBeNull();
+                result.QuestionText.Should().Be("What is the capital of France?");
+            }
         }
 
         [Fact]
@@ -68,15 +72,18 @@ namespace QuizProject.Tests.Repositories
                 CorrectAnswers = ["10"]
             };
 
-            await _repository.AddQuestion(question1);
-            await _repository.AddQuestion(question2);
+            await _repository.AddQuestionAsync(question1);
+            await _repository.AddQuestionAsync(question2);
 
             // Act
-            var questions = await _repository.GetAllQuestions();
+            var questions = await _repository.GetAllQuestionsAsync();
 
             // Assert
-            Assert.NotEmpty(questions);  
-            Assert.Equal(2, questions.Count);  
+            using (new AssertionScope())
+            {
+                questions.Should().NotBeEmpty();
+                questions.Count.Should().Be(2);
+            }
         }
 
         [Fact]
@@ -91,15 +98,18 @@ namespace QuizProject.Tests.Repositories
                 CorrectAnswers = ["6"]
             };
 
-            var addedQuestion = await _repository.AddQuestion(question);
+            var addedQuestion = await _repository.AddQuestionAsync(question);
 
             // Act
-            var result = await _repository.GetQuestionById(addedQuestion.Id);
+            var result = await _repository.GetQuestionByIdAsync(addedQuestion.Id);
 
             // Assert
-            Assert.NotNull(result);  
-            Assert.Equal(addedQuestion.Id, result?.Id);  
-            Assert.Equal("What is 3 + 3?", result?.QuestionText);  
+            using(new AssertionScope())
+            {
+                result.Should().NotBeNull();
+                result.Id.Should().Be(addedQuestion.Id);
+                result.QuestionText.Should().Be("What is 3 + 3?");
+            }
         }
     }
 }

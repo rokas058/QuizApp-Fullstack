@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
-using QuizProject.Models.Dto;
-using QuizProject.Models.Entities;
+using QuizProject.Application.Dto;
+using QuizProject.Domain.Entities;
 
-namespace QuizProject.Profiles
+namespace QuizProject.API.Profiles
 {
     public class QuizScoreProfiles : Profile
     {
-        public QuizScoreProfiles() 
+        public QuizScoreProfiles()
         {
-            CreateMap<QuizResult,QuizResultDto>();
+            CreateMap<QuizResult, QuizResultDto>();
             CreateMap<QuizResultDto, QuizResult>();
         }
     }

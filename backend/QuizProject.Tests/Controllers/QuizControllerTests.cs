@@ -1,11 +1,11 @@
 ﻿using Moq;
-using Xunit;
 using Microsoft.AspNetCore.Mvc;
-using QuizProject.Controllers;
-using QuizProject.Services;
-using QuizProject.Models.Dto;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using FluentAssertions.Execution;
+using FluentAssertions;
+using QuizProject.Application.Interfaces;
+using QuizProject.API.Controllers;
+using QuizProject.Application.Dto;
+
 
 namespace QuizProject.Tests.Controllers
 {
@@ -30,15 +30,18 @@ namespace QuizProject.Tests.Controllers
                 new() { Id = 2, QuestionText = "What is the capital of France?" }
             };
 
-            _mockQuizService.Setup(service => service.GetAllQuestions()).ReturnsAsync(expectedQuestions);
+            _mockQuizService.Setup(service => service.GetAllQuestionsAsync()).ReturnsAsync(expectedQuestions);
 
             // Act
             var result = await _quizController.GetAllQuestions();
 
             // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var returnValue = Assert.IsType<IEnumerable<QuestionDto>>(okResult.Value, exactMatch: false);
-            Assert.Equal(2, returnValue.Count());
+            using (new AssertionScope())
+            {
+                var okResult = Assert.IsType<OkObjectResult>(result);
+                var returnValue = Assert.IsType<IEnumerable<QuestionDto>>(okResult.Value, exactMatch: false);
+                returnValue.Count().Should().Be(2);
+            }
         }
 
         [Fact]
@@ -72,16 +75,19 @@ namespace QuizProject.Tests.Controllers
                 DateTime = DateTime.Now
             };
 
-            _mockQuizService.Setup(service => service.SubmitQuiz(submission)).ReturnsAsync(expectedResult);
+            _mockQuizService.Setup(service => service.SubmitQuizAsync(submission)).ReturnsAsync(expectedResult);
 
             // Act
             var result = await _quizController.SubmitQuiz(submission);
 
             // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var returnValue = Assert.IsType<QuizResultDto>(okResult.Value);
-            Assert.Equal(10, returnValue.Score);
-            Assert.Equal("test@example.com", returnValue.Email);
+            using (new AssertionScope()) 
+            {
+                var okResult = Assert.IsType<OkObjectResult>(result);
+                var returnValue = Assert.IsType<QuizResultDto>(okResult.Value);
+                returnValue.Score.Should().Be(10);  
+                returnValue.Email.Should().Be("test@example.com"); 
+            }
         }
 
         [Fact]
@@ -94,15 +100,18 @@ namespace QuizProject.Tests.Controllers
                 new() { Email = "user2@example.com", Score = 8 }
             };
 
-            _mockQuizService.Setup(service => service.GetAllScores()).ReturnsAsync(expectedScores);
+            _mockQuizService.Setup(service => service.GetAllScoresAsync()).ReturnsAsync(expectedScores);
 
             // Act
             var result = await _quizController.GetAllScores();
 
             // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var returnValue = Assert.IsType<IEnumerable<QuizResultDto>>(okResult.Value, exactMatch: false);
-            Assert.Equal(2, returnValue.Count());
+            using (new AssertionScope())  
+            {
+                var okResult = Assert.IsType<OkObjectResult>(result);
+                var returnValue = Assert.IsType<IEnumerable<QuizResultDto>>(okResult.Value, exactMatch: false);
+                returnValue.Count().Should().Be(2);  
+            }
         }
     }
 }

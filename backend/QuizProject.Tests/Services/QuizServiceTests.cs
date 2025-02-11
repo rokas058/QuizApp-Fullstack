@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
+using FluentAssertions.Execution;
+using FluentAssertions;
 using Moq;
-using QuizProject.Models.Dto;
-using QuizProject.Models.Entities;
-using QuizProject.Models.Enum;
-using QuizProject.Repositories;
-using QuizProject.Services;
-using Xunit;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using QuizProject.Application.Interfaces;
+using QuizProject.Application.Services;
+using QuizProject.Domain.Entities;
+using QuizProject.Application.Dto;
+using QuizProject.Domain.Enum;
+
 
 namespace QuizProject.Tests.Services
 {
@@ -17,7 +17,7 @@ namespace QuizProject.Tests.Services
         private readonly Mock<ICalculationService> _calculationServiceMock;
         private readonly Mock<IQuizResultRepository> _quizResultRepoMock;
         private readonly Mock<IMapper> _mapperMock;
-        private readonly IQuizService _quizService;
+        private readonly QuizService _quizService;
 
         public QuizServiceTests()
         {
@@ -44,17 +44,21 @@ namespace QuizProject.Tests.Services
                 new() { Id = 2, QuestionText = "Question 2" }
             };
 
-            _questionRepoMock.Setup(repo => repo.GetAllQuestions()).ReturnsAsync(questions);
+            _questionRepoMock.Setup(repo => repo.GetAllQuestionsAsync()).ReturnsAsync(questions);
             _mapperMock.Setup(mapper => mapper.Map<List<QuestionDto>>(questions))
                 .Returns([new QuestionDto(), new QuestionDto()]);
 
             // Act
-            var result = await _quizService.GetAllQuestions();
+            var result = await _quizService.GetAllQuestionsAsync();
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Equal(2, result.Count);
-            _questionRepoMock.Verify(repo => repo.GetAllQuestions(), Times.Once);
+            using (new AssertionScope())
+            {
+                result.Should().NotBeNull();
+                result.Count.Should().Be(2);
+            }
+
+            _questionRepoMock.Verify(repo => repo.GetAllQuestionsAsync(), Times.Once);
             _mapperMock.Verify(mapper => mapper.Map<List<QuestionDto>>(questions), Times.Once);
         }
 
@@ -79,19 +83,22 @@ namespace QuizProject.Tests.Services
                 QuestionType = QuestionType.Radio
             };
 
-            _questionRepoMock.Setup(repo => repo.GetQuestionById(It.IsAny<int>())).ReturnsAsync(question);
+            _questionRepoMock.Setup(repo => repo.GetQuestionByIdAsync(It.IsAny<int>())).ReturnsAsync(question);
             _calculationServiceMock.Setup(service => service.CalculateRadioScore(question, It.IsAny<Answer>())).Returns(100);
-            _quizResultRepoMock.Setup(repo => repo.AddQuizResult(It.IsAny<QuizResult>())).ReturnsAsync(new QuizResult { Id = 1, Email = "test@example.com", Score = 100 });
+            _quizResultRepoMock.Setup(repo => repo.AddQuizResultAsync(It.IsAny<QuizResult>())).ReturnsAsync(new QuizResult { Id = 1, Email = "test@example.com", Score = 100 });
             _mapperMock.Setup(mapper => mapper.Map<QuizResultDto>(It.IsAny<QuizResult>())).Returns(new QuizResultDto { Email = "test@example.com", Score = 100 });
 
             // Act
-            var result = await _quizService.SubmitQuiz(submission);
+            var result = await _quizService.SubmitQuizAsync(submission);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Equal("test@example.com", result.Email);
-            Assert.Equal(100, result.Score);
-            _questionRepoMock.Verify(repo => repo.GetQuestionById(It.IsAny<int>()), Times.Once);
+            using (new AssertionScope())
+            {
+                result.Should().NotBeNull();
+                result.Email.Should().Be("test@example.com");
+                result.Score.Should().Be(100);
+            }
+            _questionRepoMock.Verify(repo => repo.GetQuestionByIdAsync(It.IsAny<int>()), Times.Once);
             _calculationServiceMock.Verify(service => service.CalculateRadioScore(It.IsAny<Question>(), It.IsAny<Answer>()), Times.Once);
         }
 
@@ -101,21 +108,25 @@ namespace QuizProject.Tests.Services
             // Arrange
             var quizResults = new List<QuizResult>
             {
-                new QuizResult { Email = "test1@example.com", Score = 100 },
-                new QuizResult { Email = "test2@example.com", Score = 90 }
+                new() { Email = "test1@example.com", Score = 100 },
+                new() { Email = "test2@example.com", Score = 90 }
             };
 
-            _quizResultRepoMock.Setup(repo => repo.GetHighScores()).ReturnsAsync(quizResults);
+            _quizResultRepoMock.Setup(repo => repo.GetHighScoresAsync()).ReturnsAsync(quizResults);
             _mapperMock.Setup(mapper => mapper.Map<List<QuizResultDto>>(quizResults))
-                .Returns(new List<QuizResultDto> { new QuizResultDto(), new QuizResultDto() });
+                .Returns([new QuizResultDto(), new QuizResultDto()]);
 
             // Act
-            var result = await _quizService.GetAllScores();
+            var result = await _quizService.GetAllScoresAsync();
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Equal(2, result.Count);
-            _quizResultRepoMock.Verify(repo => repo.GetHighScores(), Times.Once);
+            using (new AssertionScope())
+            {
+                result.Should().NotBeNull();
+                result.Count.Should().Be(2);
+            }
+
+            _quizResultRepoMock.Verify(repo => repo.GetHighScoresAsync(), Times.Once);
             _mapperMock.Verify(mapper => mapper.Map<List<QuizResultDto>>(quizResults), Times.Once);
         }
     }

@@ -1,27 +1,26 @@
-﻿using Microsoft.EntityFrameworkCore;
-using QuizProject.Data;
-using QuizProject.Models.Entities;
-using QuizProject.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentAssertions.Execution;
+using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
+using QuizProject.Infrastructure.Data;
+using QuizProject.Infrastructure.Repositories;
+using QuizProject.Domain.Entities;
+
+
 
 namespace QuizProject.Tests.Repositories
 {
     public class QuizResultRepositoryTests : IDisposable
     {
-        private readonly AplicationDBContext _dbContext;
+        private readonly ApplicationDBContext _dbContext;
         private readonly QuizResultRepository _repository;
 
         public QuizResultRepositoryTests()
         {
-            var options = new DbContextOptionsBuilder<AplicationDBContext>()
-                .UseInMemoryDatabase(databaseName: "TestDatabase")
+            var options = new DbContextOptionsBuilder<ApplicationDBContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
 
-            _dbContext = new AplicationDBContext(options);
+            _dbContext = new ApplicationDBContext(options);
             _repository = new QuizResultRepository(_dbContext);
         }
 
@@ -40,11 +39,14 @@ namespace QuizProject.Tests.Repositories
                 DateTime = System.DateTime.UtcNow
             };
 
-            var result = await _repository.AddQuizResult(quizResult);
+            var result = await _repository.AddQuizResultAsync(quizResult);
 
-            Assert.NotNull(result);
-            Assert.Equal("test@example.com", result.Email);
-            Assert.Equal(85, result.Score);
+            using (new AssertionScope())
+            {
+                result.Should().NotBeNull();
+                result.Email.Should().Be("test@example.com");
+                result.Score.Should().Be(85);
+            }
         }
 
         [Fact]
@@ -67,13 +69,16 @@ namespace QuizProject.Tests.Repositories
 
             foreach (var quizResult in quizResults)
             {
-                await _repository.AddQuizResult(quizResult);
+                await _repository.AddQuizResultAsync(quizResult);
             }
 
-            var highScores = await _repository.GetHighScores();
+            var highScores = await _repository.GetHighScoresAsync();
 
-            Assert.Equal(10, highScores.Count);
-            Assert.True(highScores.First().Score >= highScores.Last().Score);
+            using (new AssertionScope())
+            {
+                highScores.Count.Should().Be(10);
+                highScores.First().Score.Should().BeGreaterThanOrEqualTo(highScores.Last().Score);
+            }
         }
     }
 }
