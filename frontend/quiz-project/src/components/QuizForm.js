@@ -31,7 +31,7 @@ const QuizForm = () => {
     };
 
     const handleTextBoxChange = (questionId, value) => {
-        handleAnswerChange(questionId, { textAnswer: value });
+        handleAnswerChange(questionId, value);
     };
 
     const handleSubmit = async (e) => {
@@ -42,12 +42,16 @@ const QuizForm = () => {
             answers: Object.entries(answers).map(([questionId, answer]) => ({
                 questionId: parseInt(questionId),
                 selectedOptions: Array.isArray(answer) ? answer : (answer ? [answer] : []),
-                textAnswer: answer?.textAnswer || '',
+                textAnswer: typeof answer === 'string' ? answer : '',
             })),
         };
 
-        const result = await submitQuiz(submission);
-        alert(`Your score: ${result.score}`);
+        try {
+            const result = await submitQuiz(submission);
+            alert(`Your score: ${result.score}`);
+        } catch (error) {
+            alert('There was an error submitting the quiz.');
+        }
     };
 
     return (
@@ -102,7 +106,7 @@ const QuizForm = () => {
                         <input
                             type="text"
                             className="form-control"
-                            value={answers[question.id]?.textAnswer || ''}
+                            value={answers[question.id] || ''}
                             onChange={(e) => handleTextBoxChange(question.id, e.target.value)}
                         />
                     )}
@@ -117,6 +121,7 @@ const QuizForm = () => {
 };
 
 export default QuizForm;
+
 
 
 

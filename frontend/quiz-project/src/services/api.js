@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://localhost:7227/api';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export const fetchQuestions = async () => {
     try {
