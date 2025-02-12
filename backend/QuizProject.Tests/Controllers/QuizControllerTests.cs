@@ -12,12 +12,12 @@ namespace QuizProject.Tests.Controllers
     public class QuizControllerTests
     {
         private readonly Mock<IQuizService> _mockQuizService;
-        private readonly QuizController _quizController;
+        private readonly QuizSubmissionController _quizController;
 
         public QuizControllerTests()
         {
             _mockQuizService = new Mock<IQuizService>();
-            _quizController = new QuizController(_mockQuizService.Object);
+            _quizController = new QuizSubmissionController(_mockQuizService.Object);
         }
 
         [Fact]

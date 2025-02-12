@@ -11,7 +11,11 @@ namespace QuizProject.Infrastructure.Repositories
 
         public async Task<List<Question>> GetAllQuestionsAsync()
         {
-            return await _dBContext.Questions.ToListAsync();
+            return await _dBContext.Questions
+                .AsNoTracking()
+                .Include(q => q.Options)
+                .Include(q => q.CorrectAnswers)
+                .ToListAsync();
         }
 
         public async Task<Question> AddQuestionAsync(Question question)
@@ -23,7 +27,11 @@ namespace QuizProject.Infrastructure.Repositories
 
         public async Task<Question?> GetQuestionByIdAsync(int id)
         {
-            return await _dBContext.Questions.FindAsync(id);
+            return await _dBContext.Questions
+                .Include(q => q.Options)
+                .Include(q => q.CorrectAnswers)
+                .FirstOrDefaultAsync(q => q.Id == id);
+
         }
 
     }

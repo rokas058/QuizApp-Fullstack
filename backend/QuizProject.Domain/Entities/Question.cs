@@ -9,7 +9,8 @@ namespace QuizProject.Domain.Entities
         public string QuestionText { get; set; } = string.Empty;
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public QuestionType QuestionType { get; set; }
-        public List<string>? Options { get; set; }
-        public List<string> CorrectAnswers { get; set; } = [];
+        public ICollection<QuestionOption>? Options { get; set; } = [];
+        public ICollection<CorrectAnswer> CorrectAnswers { get; set; } = [];
+
     }
 }

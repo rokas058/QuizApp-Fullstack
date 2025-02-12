@@ -41,8 +41,8 @@ const QuizForm = () => {
             email,
             answers: Object.entries(answers).map(([questionId, answer]) => ({
                 questionId: parseInt(questionId),
-                selectedOptions: Array.isArray(answer) ? answer : [],
-                textAnswer: answer.textAnswer || '',
+                selectedOptions: Array.isArray(answer) ? answer : (answer ? [answer] : []),
+                textAnswer: answer?.textAnswer || '',
             })),
         };
 
@@ -70,31 +70,31 @@ const QuizForm = () => {
                     <h5>{question.questionText}</h5>
 
                     {question.questionType === 'Radio' &&
-                        question.options.map((option, index) => (
-                            <div className="form-check" key={index}>
+                        question.options.map((option) => (
+                            <div className="form-check" key={option.id}>
                                 <input
                                     type="radio"
                                     className="form-check-input"
                                     name={`question-${question.id}`}
-                                    value={option}
-                                    checked={answers[question.id]?.includes(option) || false}
-                                    onChange={() => handleRadioChange(question.id, option)}
+                                    value={option.option}
+                                    checked={answers[question.id]?.includes(option.option) || false}
+                                    onChange={() => handleRadioChange(question.id, option.option)}
                                 />
-                                <label className="form-check-label">{option}</label>
+                                <label className="form-check-label">{option.option}</label>
                             </div>
                         ))}
 
                     {question.questionType === 'Checkbox' &&
-                        question.options.map((option, index) => (
-                            <div className="form-check" key={index}>
+                        question.options.map((option) => (
+                            <div className="form-check" key={option.id}>
                                 <input
                                     type="checkbox"
                                     className="form-check-input"
-                                    value={option}
-                                    checked={answers[question.id]?.includes(option) || false}
-                                    onChange={() => handleCheckboxChange(question.id, option)}
+                                    value={option.option}
+                                    checked={answers[question.id]?.includes(option.option) || false}
+                                    onChange={() => handleCheckboxChange(question.id, option.option)}
                                 />
-                                <label className="form-check-label">{option}</label>
+                                <label className="form-check-label">{option.option}</label>
                             </div>
                         ))}
 
@@ -114,7 +114,9 @@ const QuizForm = () => {
             </button>
         </form>
     );
-}
+};
 
 export default QuizForm;
+
+
 

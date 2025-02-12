@@ -12,8 +12,8 @@ namespace QuizProject.Application.Services
         public int CalculateCheckboxScore(Question question, Answer answer)
         {
             int correctAnswersCount = question.CorrectAnswers.Count;
-            int correctSelectedCount = answer.SelectedOptions.Intersect(question.CorrectAnswers).Count();
-            int incorrectSelectedCount = answer.SelectedOptions.Except(question.CorrectAnswers).Count();
+            int correctSelectedCount = answer.SelectedOptions.Intersect(question.CorrectAnswers.Select(ca => ca.Answer)).Count();
+            int incorrectSelectedCount = answer.SelectedOptions.Except(question.CorrectAnswers.Select(ca => ca.Answer)).Count();
 
             if (incorrectSelectedCount > 0)
             {
@@ -29,7 +29,7 @@ namespace QuizProject.Application.Services
 
         public int CalculateRadioScore(Question question, Answer answer)
         {
-            if (question.CorrectAnswers.Contains(answer.SelectedOptions.FirstOrDefault() ?? ""))
+            if (question.CorrectAnswers.Any(ca => ca.Answer.Equals(answer.SelectedOptions.FirstOrDefault(), StringComparison.OrdinalIgnoreCase)))
             {
                 return FullScore;
             }
@@ -39,7 +39,7 @@ namespace QuizProject.Application.Services
         public int CalculateTextBoxScore(Question question, Answer answer)
         {
             if (answer.TextAnswer?.Trim().Equals(
-            question.CorrectAnswers.FirstOrDefault(),
+            question.CorrectAnswers.FirstOrDefault()?.Answer,
             StringComparison.OrdinalIgnoreCase) == true)
             {
                 return FullScore;
@@ -48,3 +48,4 @@ namespace QuizProject.Application.Services
         }
     }
 }
+
